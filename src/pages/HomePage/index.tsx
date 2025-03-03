@@ -1,4 +1,3 @@
-import React, {useEffect, useRef, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import './index.less'
 import {Image} from "antd";
@@ -12,7 +11,6 @@ function HomePage() {
 
 
     return (
-        //简洁明了地介绍自己，包括姓名、职业、联系方式等基本信息。可以添加一张专业的个人照片，提升亲和力。
         <div>
             <ProCard
                 title="web前端工程师"

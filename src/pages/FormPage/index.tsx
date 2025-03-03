@@ -20,13 +20,13 @@ function BlogPage() {
     }, [count])
 
     let start = 0
-    let allInterval = []
+    const allInterval = []
 
     const progress = () => {
         progressBarRef.current.style.width = progressBarRef.current.offsetWidth + 1 + 'px'
         progressBarRef.current.innerHTML = (progressBarRef.current.offsetWidth) + '%'
         if (progressBarRef.current.offsetWidth < 100) {
-            let current = Date.now()
+            const current = Date.now()
             allInterval.push(current - start)
             start = current
             requestAnimationFrame(progress)
@@ -36,9 +36,9 @@ function BlogPage() {
     }
 
     const startAnimation = () => {
-        let currrent = Date.now()
+        const current = Date.now()
         console.log('progressBarRef', progressBarRef)
-        start = currrent
+        start = current
         window.requestAnimationFrame(progress)
         console.log(allInterval)
     }

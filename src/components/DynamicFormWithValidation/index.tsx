@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Button, Form, Input, InputNumber, message, Radio} from "antd";
+import {Button, Form, Input, InputNumber,  Radio} from "antd";
 import {useEffect, useState} from "react";
 import {useUpdateEffect} from "ahooks";
 
@@ -8,6 +8,9 @@ const DynamicFormWithValidation = () => {
     const ansType = Form.useWatch('ansType', form);
     const quesType = Form.useWatch('quesType', form);
 
+    useEffect(()=>{
+        console.log('quesTYPE',quesType)
+    },[quesType])
 
     const [options2, setOptions2] = useState([
         {value: 'a', label: 'a'},

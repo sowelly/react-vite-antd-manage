@@ -1,9 +1,7 @@
 import {
     PlusCircleFilled,
     SearchOutlined,
-    RedditOutlined,
     HeartTwoTone,
-    SmileOutlined,
     SmileTwoTone
 } from '@ant-design/icons';
 import type {MenuDataItem} from '@ant-design/pro-components';
@@ -34,6 +32,7 @@ const filterByMenuData = (
 
 const loopMenuItem = (menus: any[]): MenuDataItem[] =>
     menus.map(({icon, routes, ...item}) => ({
+        icon,
         ...item,
         children: routes && loopMenuItem(routes),
     }));

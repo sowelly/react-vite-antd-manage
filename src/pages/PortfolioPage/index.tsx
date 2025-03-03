@@ -1,5 +1,5 @@
-import {Button, Carousel, Image, Space} from "antd";
-import {useState} from "react";
+import {Carousel, Image} from "antd";
+import {useEffect, useState} from "react";
 import * as React from "react";
 import {observer} from "mobx-react-lite";
 import './index.less'
@@ -7,6 +7,10 @@ import './index.less'
 function PortfolioPage() {
     const [random, setRandom] = useState<number>();
 
+
+    useEffect(()=>{
+        setRandom(Math.random)
+    },[])
     return <div className={'portfolioWrap'}>
         {/*<Button*/}
         {/*    type="primary"*/}

@@ -1,6 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
 import {observer} from 'mobx-react-lite';
-import {useStore} from '@/stores/useStore';
 import  './index.less'
 
 function ContactPage() {
