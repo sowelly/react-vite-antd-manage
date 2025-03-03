@@ -3,9 +3,14 @@ import './index.less'
 import CustomStore from "./customStore";
 import {Button} from "antd";
 
+interface GirlState {
+    name: string;
+    count: number;
+}
+
 function GamePage() {
 
-    const girlStore = new CustomStore({count: 0, name: 'lisa'})
+    const girlStore = new CustomStore<GirlState>({count: 0, name: 'lisa'})
     girlStore.addListener((key, value) => {
         console.log(`changed:${key}=${value}`)
     })
@@ -16,7 +21,6 @@ function GamePage() {
     }
     const changeName = () => {
         girlStore.getState().name = 'Bob';  // 输出: State changed: name = Bob
-        girlStore.getState().sex = 'f';
     }
     const print = () => {
         console.log(`changed:`, girlStore.getState())

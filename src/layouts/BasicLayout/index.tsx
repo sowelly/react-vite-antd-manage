@@ -10,7 +10,6 @@ import {Input, Space} from 'antd';
 import {useState} from 'react';
 import complexMenu from './complexMenu';
 import {useNavigate} from 'react-router-dom'
-import * as React from "react";
 import {WaterMark} from '@ant-design/pro-components';
 
 const filterByMenuData = (
@@ -48,7 +47,7 @@ export default ({children}) => {
             }}
         >
             <ProLayout
-                local={true}
+                locale={true}
                 location={{
                     pathname: '/home/overview',
                 }}
@@ -93,7 +92,7 @@ export default ({children}) => {
                 menuItemRender={(item, dom) => (
                     <a
                         onClick={() => {
-                            navigate(item.path)
+                            navigate(item?.path ?? '/')
                         }}
                     >
                         {dom}

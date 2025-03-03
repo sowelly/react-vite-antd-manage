@@ -1,13 +1,11 @@
-import React, {useEffect, useRef, useState} from 'react';
+import  {useEffect, useRef, useState} from 'react';
 import {observer} from 'mobx-react-lite';
-import {useStore} from '@/stores/useStore';
 import './index.less'
 import DynamicFormWithValidation from "../../components/DynamicFormWithValidation/index";
 
 function BlogPage() {
-    const {counterStore} = useStore();
     const [count, setCount] = useState(0);
-    const progressBarRef = useRef<HTMLDivElement>(null);
+    const progressBarRef = useRef<HTMLDivElement | null>(null);
 
     const handleClick = () => {
         // setCount(count + 1);
@@ -23,6 +21,7 @@ function BlogPage() {
     const allInterval = []
 
     const progress = () => {
+        if (!progressBarRef||!progressBarRef.current) return
         progressBarRef.current.style.width = progressBarRef.current.offsetWidth + 1 + 'px'
         progressBarRef.current.innerHTML = (progressBarRef.current.offsetWidth) + '%'
         if (progressBarRef.current.offsetWidth < 100) {
@@ -45,10 +44,6 @@ function BlogPage() {
 
     return (
         <div>
-            <button onClick={() => counterStore.increment()}>Increment</button>
-            <button onClick={() => counterStore.decrement()}>Decrement</button>
-
-
             <div>
                 count:{count}
                 <button onClick={handleClick}>add</button>

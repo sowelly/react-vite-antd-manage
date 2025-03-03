@@ -1,16 +1,16 @@
-import * as React from "react";
-import {Button, Form, Input, InputNumber,  Radio} from "antd";
+import {Button, Form, Input, InputNumber, Radio} from "antd";
 import {useEffect, useState} from "react";
 import {useUpdateEffect} from "ahooks";
+import {Rule} from "antd/lib/form";
 
 const DynamicFormWithValidation = () => {
-    const [form] = Form.useForm();
+    const [form] = Form.useForm<{ ansType: string, quesType: string }>();
     const ansType = Form.useWatch('ansType', form);
     const quesType = Form.useWatch('quesType', form);
 
-    useEffect(()=>{
-        console.log('quesTYPE',quesType)
-    },[quesType])
+    useEffect(() => {
+        console.log('quesTYPE', quesType)
+    }, [quesType])
 
     const [options2, setOptions2] = useState([
         {value: 'a', label: 'a'},
@@ -39,7 +39,7 @@ const DynamicFormWithValidation = () => {
     }
 
     // 根据单选框的值动态设置验证规则
-    const getValidationRules = (selectedOption) => {
+    const getValidationRules = (selectedOption: 'text' | 'number' | 'email') => {
         switch (selectedOption) {
             case 'text':
                 return [
@@ -61,7 +61,7 @@ const DynamicFormWithValidation = () => {
         }
     };
 
-    const renderInput = (selectedOption) => {
+    const renderInput = (selectedOption):Rule[] => {
         switch (selectedOption) {
             case 'text':
                 return <Input placeholder="请输入文本"/>;

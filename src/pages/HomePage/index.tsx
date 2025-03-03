@@ -1,11 +1,11 @@
 import {observer} from 'mobx-react-lite';
 import './index.less'
-import {Image} from "antd";
+// import {Image} from "antd";
 import {ProCard} from '@ant-design/pro-components';
 import {MediumOutlined, PhoneOutlined, RedditOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 
-const avatar = import('@/assets/react.svg')
+// const avatar = import('@/assets/react.svg')
 
 function HomePage() {
 
@@ -21,7 +21,7 @@ function HomePage() {
             >
                 <div>
                     <h1>尹琴</h1>
-                    <div><Image src={avatar} alt=""/></div>
+                    {/*<div><Image src={avatar} alt=""/></div>*/}
                     <h3><PhoneOutlined/> 1580283067</h3>
                     <h3><MediumOutlined/> 694516293@qq.com</h3>
                     <h4>
