@@ -1,4 +1,4 @@
-import  {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import './index.less'
 import DynamicFormWithValidation from "../../components/DynamicFormWithValidation/index";
@@ -18,10 +18,10 @@ function BlogPage() {
     }, [count])
 
     let start = 0
-    const allInterval = []
+    const allInterval: number[] = []
 
     const progress = () => {
-        if (!progressBarRef||!progressBarRef.current) return
+        if (!progressBarRef || !progressBarRef.current) return
         progressBarRef.current.style.width = progressBarRef.current.offsetWidth + 1 + 'px'
         progressBarRef.current.innerHTML = (progressBarRef.current.offsetWidth) + '%'
         if (progressBarRef.current.offsetWidth < 100) {

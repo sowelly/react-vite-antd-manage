@@ -47,7 +47,6 @@ export default ({children}) => {
             }}
         >
             <ProLayout
-                locale={true}
                 location={{
                     pathname: '/home/overview',
                 }}
