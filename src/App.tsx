@@ -7,6 +7,7 @@ import PortfolioPage from "./pages/PortfolioPage";
 import ThreeJSPage from "./pages/ThreeJSPage";
 import WebGlPage from "./pages/WebGlPage";
 import DonutPage from "./pages/Donut";
+import NotFound from "./pages/404/index";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                     <Route path="/threeJS" element={<ThreeJSPage/>}/>
                     <Route path="/webGl" element={<WebGlPage/>}/>
                     <Route path="/donut" element={<DonutPage/>}/>
+                    <Route path="/404" element={<NotFound/>}/>
                 </Routes>
             </BasicLayout>
         </Router>
