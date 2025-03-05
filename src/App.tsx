@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {HashRouter as Router, Routes, Route} from 'react-router-dom';
 import BasicLayout from './layouts/BasicLayout';
 import FormPage from './pages/FormPage';
 import GamePage from './pages/GamePage';
@@ -21,7 +21,7 @@ function App() {
                     <Route path="/threeJS" element={<ThreeJSPage/>}/>
                     <Route path="/webGl" element={<WebGlPage/>}/>
                     <Route path="/donut" element={<DonutPage/>}/>
-                    <Route path="/404" element={<NotFound/>}/>
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </BasicLayout>
         </Router>

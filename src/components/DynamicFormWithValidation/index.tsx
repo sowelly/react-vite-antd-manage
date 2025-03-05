@@ -92,9 +92,9 @@ const DynamicFormWithValidation = () => {
         </Form.Item>
 
         <Form.Item name="quesType" label="选择输入类型2"
-                   shouldUpdate={(  prevValues: FormValues,
-        currentValues: FormValues) => {
-                       console.log('prevValues',prevValues,typeof prevValues)
+                   shouldUpdate={(prevValues: FormValues,
+                                  currentValues: FormValues) => {
+                       console.log('prevValues', prevValues, typeof prevValues)
                        return prevValues.ansType !== currentValues.ansType
                    }
                    }>
@@ -109,8 +109,8 @@ const DynamicFormWithValidation = () => {
 
         <Form.Item
             noStyle
-            shouldUpdate={(  prevValues: FormValues,
-        currentValues: FormValues) =>
+            shouldUpdate={(prevValues: FormValues,
+                           currentValues: FormValues) =>
                 prevValues.ansType !== currentValues.ansType
             }
         >
