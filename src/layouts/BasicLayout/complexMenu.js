@@ -30,6 +30,13 @@ export default [
 
         ],
     },{
+        path: '/talk',
+        name: 'talk to me',
+        locale: 'menu.talk',
+        routes: [
+
+        ],
+    },{
         path: '/donut',
         name: '甜甜圈下载（我的首个独立app）',
         locale: 'menu.donut',

@@ -7,6 +7,7 @@ import PortfolioPage from "./pages/PortfolioPage";
 import ThreeJSPage from "./pages/ThreeJSPage";
 import WebGlPage from "./pages/WebGlPage";
 import DonutPage from "./pages/Donut";
+import TalkAIPage from "./pages/TalkAI";
 import NotFound from "./pages/404/index";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
                     <Route path="/threeJS" element={<ThreeJSPage/>}/>
                     <Route path="/webGl" element={<WebGlPage/>}/>
                     <Route path="/donut" element={<DonutPage/>}/>
+                    <Route path="/talkAI" element={<TalkAIPage/>}/>
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </BasicLayout>

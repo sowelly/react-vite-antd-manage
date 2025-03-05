@@ -1,62 +1,69 @@
-import {useEffect, useRef, useState} from 'react';
-import {observer} from 'mobx-react-lite';
+import * as React from "react";
+import MenuFormAuth from "./menuForm";
+import {Form, Splitter, Tabs, TabsProps} from "antd";
 import './index.less'
-import DynamicFormWithValidation from "../../components/DynamicFormWithValidation/index";
+import {observer} from 'mobx-react-lite';
+import {useEffect} from "react";
+import {dynamicFormStore} from '../../stores/dynamicFormStore'
+import MenuPreviewAuth from "./menuPreview";
 
-function BlogPage() {
-    const [count, setCount] = useState(0);
-    const progressBarRef = useRef<HTMLDivElement | null>(null);
-
-    const handleClick = () => {
-        // setCount(count + 1);
-        // setCount(count + 1); // 仍然加 1（同步闭包）
-        setCount((pre) => pre + 1);
-        setCount((pre) => pre + 1);
-    };
-    useEffect(() => {
-        console.log('count', count)
-    }, [count])
-
-    let start = 0
-    const allInterval: number[] = []
-
-    const progress = () => {
-        if (!progressBarRef || !progressBarRef.current) return
-        progressBarRef.current.style.width = progressBarRef.current.offsetWidth + 1 + 'px'
-        progressBarRef.current.innerHTML = (progressBarRef.current.offsetWidth) + '%'
-        if (progressBarRef.current.offsetWidth < 100) {
-            const current = Date.now()
-            allInterval.push(current - start)
-            start = current
-            requestAnimationFrame(progress)
-        } else {
-            console.log(allInterval) // 打印requestAnimationFrame的全部时间间隔
-        }
-    }
-
-    const startAnimation = () => {
-        const current = Date.now()
-        console.log('progressBarRef', progressBarRef)
-        start = current
-        window.requestAnimationFrame(progress)
-        console.log(allInterval)
-    }
-
-    return (
-        <div>
-            <div>
-                count:{count}
-                <button onClick={handleClick}>add</button>
-            </div>
-            <div ref={progressBarRef} className={'progressBar'}></div>
-            <button onClick={startAnimation}>开始动画</button>
-
-
-            <DynamicFormWithValidation/>
-
-
-        </div>
-    );
+export interface FormValues {
+    picture: string
+    source: string
+    cookingType: string
+    processingMethod: string
+    suitable: string
+    difficulty: string
+    recommendation: string
+    isPublic: string
+    tips: string
 }
 
-export default observer(BlogPage); // 使用 observer 包裹组件
+export const defaultKeys = ["picture", "source", "cookingType", "processingMethod", "suitable", "difficulty", "recommendation", "isPublic", "tips"]
+
+
+const FormDisabledDemo: React.FC = () => {
+    const [form] = Form.useForm<FormValues>();
+
+    // 设置表单实例到 MobX store（只执行一次）
+    useEffect(() => {
+        if (!dynamicFormStore.form) {
+            dynamicFormStore.setForm(form);
+            dynamicFormStore.setKeys([...defaultKeys])
+        }
+    }, [form]);
+
+
+    const TabItems: TabsProps['items'] = [
+        {
+            key: '1',
+            label: '动态表单1',
+            children: <MenuFormAuth/>
+        },
+        {
+            key: '2',
+            label: '动态表单2',
+            children: <MenuFormAuth/>
+        }
+    ];
+
+    const onChange = (key: string) => {
+        console.log(key);
+        key === '1' ? dynamicFormStore.setKeys([...defaultKeys]) : dynamicFormStore.setKeys(["picture", "source", "cookingType"])
+    };
+
+    return (
+        form ? <div className={'formWrap'}>
+            <Splitter>
+                <Splitter.Panel defaultSize="40%" min="30%" max="50%">
+                    <Tabs defaultActiveKey="1" items={TabItems} onChange={onChange}/>;
+                </Splitter.Panel>
+                <Splitter.Panel>
+                    <MenuPreviewAuth/>
+                </Splitter.Panel>
+            </Splitter>
+        </div> : null
+    );
+};
+
+export default observer(FormDisabledDemo)
