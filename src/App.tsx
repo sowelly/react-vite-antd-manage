@@ -1,21 +1,35 @@
-import {HashRouter as Router, Routes, Route} from 'react-router-dom';
+import {createHashRouter,RouterProvider, Routes, Route} from 'react-router-dom';
 import BasicLayout from './layouts/BasicLayout';
 import FormPage from './pages/FormPage';
 import HomePage from './pages/HomePage';
+import LoginPage from './pages/Login';
 import NotFound from "./pages/404/index";
 
-function App() {
-    return (
-        <Router>
-            <BasicLayout>
-                <Routes>
-                    <Route path="/" element={<HomePage/>}/>
-                    <Route path="/form" element={<FormPage/>}/>
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-            </BasicLayout>
-        </Router>
-    );
-}
+const router = createHashRouter([
+    {
+        path: '/login',
+        element: <LoginPage />,
+    },
+    {
+        element: <BasicLayout />,
+        children: [
+            {
+                path: '/',
+                element: <HomePage />,
+            },
 
-export default App;
+            {
+                path: 'form',
+                element: <FormPage />,
+            },
+            {
+                path: '*',
+                element: <NotFound />,
+            },
+        ],
+    },
+]);
+
+export default function App() {
+    return <RouterProvider router={router} />;
+}

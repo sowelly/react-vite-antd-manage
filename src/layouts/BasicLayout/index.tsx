@@ -9,7 +9,7 @@ import {PageContainer, ProLayout} from '@ant-design/pro-components';
 import {Input, Space} from 'antd';
 import {useState} from 'react';
 import complexMenu from './complexMenu';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate,Outlet } from 'react-router-dom'
 import {WaterMark} from '@ant-design/pro-components';
 
 const filterByMenuData = (
@@ -106,7 +106,7 @@ export default ({children}) => {
                         <div>欢迎访问我的blog,请随便逛逛吧 <SmileTwoTone twoToneColor="#eb2f96"/> <HeartTwoTone
                             twoToneColor="#eb2f96"/></div>
                     }>
-                    <WaterMark content="前端工程师-尹琴">  {children}</WaterMark>
+                    <WaterMark content="前端工程师-尹琴">  <Outlet />  </WaterMark>
                 </PageContainer>
             </ProLayout>
         </div>
