@@ -1,35 +1,52 @@
-import {createHashRouter,RouterProvider, Routes, Route} from 'react-router-dom';
+import * as React from "react";
+import {createHashRouter, RouterProvider} from 'react-router-dom';
 import BasicLayout from './layouts/BasicLayout';
-import FormPage from './pages/FormPage';
 import HomePage from './pages/HomePage';
-import LoginPage from './pages/Login';
+import QuestionPage from './pages/Question/list';
+import QuestionModifyPage from './pages/Question/modify';
+import VideoPage from './pages/Video/list';
+import VideoModifyPage from './pages/Video/modify';
 import NotFound from "./pages/404/index";
+import {ThemeProvider} from './theme/ThemeContext';
 
-const router = createHashRouter([
+const routes = [
     {
-        path: '/login',
-        element: <LoginPage />,
+        path: '/',
+        element: <HomePage/>,
     },
     {
-        element: <BasicLayout />,
+        element: <BasicLayout/>,
         children: [
             {
-                path: '/',
-                element: <HomePage />,
+                path: '/question',
+                element: <QuestionPage/>,
             },
-
             {
-                path: 'form',
-                element: <FormPage />,
+                path: '/questionModify',
+                element: <QuestionModifyPage/>,
+            },
+            {
+                path: '/video',
+                element: <VideoPage/>,
+            },
+            {
+                path: '/videoModify',
+                element: <VideoModifyPage/>,
             },
             {
                 path: '*',
-                element: <NotFound />,
+                element: <NotFound/>,
             },
         ],
     },
-]);
+]
+
+const router = createHashRouter(routes);
 
 export default function App() {
-    return <RouterProvider router={router} />;
+    return (
+        <ThemeProvider>
+            <RouterProvider router={router}/>
+        </ThemeProvider>
+    );
 }

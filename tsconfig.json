@@ -8,13 +8,11 @@
   "compilerOptions": {
     "strict": false,
     "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
     "types": [
       "node"
-    ],
-    "paths": {
-      "@/*": [
-        "src/*"
-      ]
-    }
+    ]
   }
 }

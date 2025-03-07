@@ -1,16 +1,16 @@
+import * as React from "react";
 import {
-    PlusCircleFilled,
-    SearchOutlined,
-    HeartTwoTone,
-    SmileTwoTone
+    UserOutlined,
+    SettingOutlined,
+    LogoutOutlined,
 } from '@ant-design/icons';
 import type {MenuDataItem} from '@ant-design/pro-components';
 import {PageContainer, ProLayout} from '@ant-design/pro-components';
-import {Input, Space} from 'antd';
-import {useState} from 'react';
+import {Space, Dropdown, Avatar} from 'antd';
 import complexMenu from './complexMenu';
-import {useNavigate,Outlet } from 'react-router-dom'
+import {useNavigate, Outlet, useLocation} from 'react-router-dom'
 import {WaterMark} from '@ant-design/pro-components';
+import './index.less';
 
 const filterByMenuData = (
     data: MenuDataItem[],
@@ -36,58 +36,66 @@ const loopMenuItem = (menus: any[]): MenuDataItem[] =>
         children: routes && loopMenuItem(routes),
     }));
 
-export default ({children}) => {
-    const navigate = useNavigate()
-    const [keyWord, setKeyWord] = useState('');
+export default () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [keyWord, setKeyWord] = React.useState('');
+
+    const getPageTitle = () => {
+        const currentRoute = window.location.hash.slice(1);
+        switch (currentRoute) {
+            case '/question':
+                return '题库';
+            case '/modifyQuestion':
+                return '新增题目';
+            case '/video':
+                return '视频库';
+            case '/modifyVideo':
+                return '新增视频';
+            default:
+                return '404';
+        }
+    };
+
+    React.useEffect(() => {
+        const currentRoute = window.location.hash.slice(1);
+        const title = currentRoute === '/table' ? '高级表格' :
+            currentRoute === '/interviewSummary' ? '面试总结' :
+                currentRoute === '/form' ? '表单页面' :
+                    '404';
+        document.title = `${title} - AntMotion`;
+    }, [location]);
+
+    const userMenuItems = [
+        {
+            key: 'profile',
+            icon: <UserOutlined/>,
+            label: '个人中心',
+        },
+        {
+            key: 'settings',
+            icon: <SettingOutlined/>,
+            label: '系统设置',
+        },
+        {
+            key: 'logout',
+            icon: <LogoutOutlined/>,
+            label: '退出登录',
+        },
+    ];
 
     return (
-        <div
-            style={{
-                height: '100vh'
-            }}
-        >
+        <div className="layout-container">
             <ProLayout
+                layout="top"
                 location={{
-                    pathname: '/home/overview',
+                    pathname: window.location.hash.slice(1),
                 }}
+                logo={false}
+                title={''}
                 menu={{
                     hideMenuWhenCollapsed: true,
                 }}
-                menuExtraRender={({collapsed}) =>
-                    !collapsed && (
-                        <Space
-                            style={{
-                                marginBlockStart: 16,
-                            }}
-                            align="center"
-                        >
-                            <Input
-                                style={{
-                                    borderRadius: 4,
-                                    backgroundColor: 'rgba(0,0,0,0.03)',
-                                }}
-                                prefix={
-                                    <SearchOutlined
-                                        style={{
-                                            color: 'rgba(0, 0, 0, 0.15)',
-                                        }}
-                                    />
-                                }
-                                placeholder="搜索方案"
-                                variant="borderless"
-                                onPressEnter={(e) => {
-                                    setKeyWord((e.target as HTMLInputElement).value);
-                                }}
-                            />
-                            <PlusCircleFilled
-                                style={{
-                                    color: 'var(--ant-primary-color)',
-                                    fontSize: 24,
-                                }}
-                            />
-                        </Space>
-                    )
-                }
                 menuItemRender={(item, dom) => (
                     <a
                         onClick={() => {
@@ -101,13 +109,29 @@ export default ({children}) => {
                 postMenuData={(menus) => filterByMenuData(menus || [], keyWord)}
                 contentWidth={'Fluid'}
             >
-                <PageContainer
-                    content={
-                        <div>欢迎访问我的blog,请随便逛逛吧 <SmileTwoTone twoToneColor="#eb2f96"/> <HeartTwoTone
-                            twoToneColor="#eb2f96"/></div>
-                    }>
-                    <WaterMark content="前端工程师-尹琴">  <Outlet />  </WaterMark>
-                </PageContainer>
+                <div className="page-container">
+                    <PageContainer
+                        header={{
+                            title: getPageTitle(),
+                            breadcrumb: {
+                                routes: [
+                                    {
+                                        path: '/',
+                                        breadcrumbName: '首页',
+                                    },
+                                    {
+                                        path: '',
+                                        breadcrumbName: getPageTitle(),
+                                    },
+                                ],
+                            },
+                        }}
+                    >
+                        <WaterMark content="web前端-YQ">
+                            <Outlet/>
+                        </WaterMark>
+                    </PageContainer>
+                </div>
             </ProLayout>
         </div>
     );

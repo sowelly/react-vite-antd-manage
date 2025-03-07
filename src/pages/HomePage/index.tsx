@@ -1,42 +1,40 @@
-import {observer} from 'mobx-react-lite';
-import './index.less'
-// import {Image} from "antd";
-import {ProCard} from '@ant-design/pro-components';
-import {MediumOutlined, PhoneOutlined, RedditOutlined} from "@ant-design/icons";
-import {Link} from "react-router-dom";
+import * as React from "react";
+import {Card, Input} from 'antd';
+import {FileTextOutlined, FileOutlined} from '@ant-design/icons';
+import {Link} from 'react-router-dom'
+import './index.less';
 
-// const avatar = import('@/assets/react.svg')
+const {Search} = Input;
 
 function HomePage() {
-
-
     return (
-        <div>
-            <ProCard
-                title="web前端工程师"
-                extra="extra"
-                tooltip="这儿有一个小彩蛋"
-                style={{maxWidth: 700}}
-                headerBordered
-            >
-                <div>
-                    <h1>尹琴</h1>
-                    {/*<div><Image src={avatar} alt=""/></div>*/}
-                    <h3><PhoneOutlined/> 1580283067</h3>
-                    <h3><MediumOutlined/> 694516293@qq.com</h3>
-                    <h4>
-                        <RedditOutlined/> 我从事前端已经九年啦，拥有众多专业技能，like：React/Vue/Angular（及其配套周边）、Node、webSocket、webWorker等等。在离职的这段时间我终于有空搞一个我的个人网站出来了。我还有许多奇思妙想终于也能在这个时间一一实现了。
-                    </h4>
-                    <div><Link to={'/portfolio'}>部分作品集点这里</Link></div>
-                    <div><Link to={'https://github.com/sowelly'}>我的github点这里</Link></div>
-                    <div><Link to={'https://juejin.cn/user/563421643020807'}>我的掘金点这里</Link></div>
-                    <div><Link to={'https://juejin.cn/user/563421643020807'}>想找到志同道合的圈子吗点这里</Link></div>
-                </div>
-            </ProCard>
-
-
+        <div className="home-container">
+            <div className="cards-container">
+                <Link to={'/video'}>
+                    <Card className="feature-card">
+                        <FileTextOutlined style={{fontSize: '32px'}}/>
+                        <div className="card-text">视频库</div>
+                    </Card>
+                </Link>
+                <Link to={'/question'}>
+                    <Card className="feature-card">
+                        <FileOutlined style={{fontSize: '32px'}}/>
+                        <div className="card-text">题库</div>
+                    </Card>
+                </Link>
+            </div>
+            <div className="search-container">
+                <h1>start exploring</h1>
+                <Search
+                    placeholder="输入搜索关键词"
+                    allowClear
+                    enterButton
+                    size="large"
+                    style={{width: 500}}
+                />
+            </div>
         </div>
     );
 }
 
-export default observer(HomePage); // 使用 observer 包裹组件
+export default HomePage;

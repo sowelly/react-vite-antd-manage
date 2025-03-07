@@ -16,6 +16,10 @@ const MenuPreview: FC = () => {
         console.log('defaultKeys', defaultKeysAll)
     }, [defaultKeysAll])
 
+    useEffect(() => {
+        console.log('keys', keys)
+    }, [keys])
+
 
     const arrayRender = (array) => {
         if (!array || !Array.isArray(array)) return <div>null</div>;
@@ -57,8 +61,7 @@ const MenuPreview: FC = () => {
         }
 
     }
-    return <div className={'previewWrap'}>
-        <div className={'header'}>效果预览</div>
+    return <div>
         {
             keys.map((key, index) => {
                 return <Card title={keyMap[key].label} key={index} variant="borderless">
